@@ -34,7 +34,7 @@ class StudentController extends Controller
        // $path = public_path() . '/uploads/images/store/';
         //$file->move($path, $file->getClientOriginalName());
         //return response()->json(compact('path'));
-       $byte = file_get_contents($file);
+       $byte = file_get_contents($file,true);
         return $byte;
 
     }
