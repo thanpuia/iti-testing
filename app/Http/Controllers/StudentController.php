@@ -27,16 +27,25 @@ class StudentController extends Controller
     public function store(Request $request)
     {
 
-        // $rows = Excel::toArray(new StudentsImport, $request->file('file')); 
-        // return response()->json(["rows"=>$rows]);
+        //The below 2 line is good for text
+        if($request["type"]=="excel"){
+         $rows = Excel::toArray(new StudentsImport, $request->file('file')); 
+        return response()->json(["rows"=>$rows]);
 
-        $file = $request->file('file');
-       // $path = public_path() . '/uploads/images/store/';
-        //$file->move($path, $file->getClientOriginalName());
-        //return response()->json(compact('path'));
-       $byte = file_get_contents($file,true);
-        return $byte;
-
+        }else if ($request["type"]=="image"){
+            $file = $request->file('file');
+            // $path = public_path() . '/uploads/images/store/';
+             //$file->move($path, $file->getClientOriginalName());
+             //return response()->json(compact('path'));
+            $byte = file_get_contents($file);
+             $image = base64_encode($byte);
+      
+     
+            //$data = base64_decode($byte);
+            // $im = imagecreatefromstring($data);
+             return $image;       
+        }
+        
     }
 
  
