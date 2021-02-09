@@ -7,7 +7,8 @@ use App\Student;
 use App\Imports\StudentsImport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Http;
 
 class StudentController extends Controller
 {
@@ -20,7 +21,7 @@ class StudentController extends Controller
    
     public function create()
     {
-        //
+       
     }
 
  
@@ -34,16 +35,20 @@ class StudentController extends Controller
 
         }else if ($request["type"]=="image"){
             $file = $request->file('file');
-            // $path = public_path() . '/uploads/images/store/';
-             //$file->move($path, $file->getClientOriginalName());
-             //return response()->json(compact('path'));
-            $byte = file_get_contents($file);
+           $byte = file_get_contents($file);
              $image = base64_encode($byte);
       
-     
-            //$data = base64_decode($byte);
-            // $im = imagecreatefromstring($data);
              return $image;       
+
+        
+            //    $file = $request->file('file');
+            //  $data = file_get_contents($file);
+            // $array = array(); 
+            // foreach(str_split($data) as $char){ 
+            //     array_push($array, ord($char)); 
+            // }
+            // var_dump(implode(' ', $array));
+            // error_log(implode(' ', $array));
         }
         
     }
@@ -69,6 +74,27 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         //
+    }
+
+    public function apitest(){
+
+         //testing 
+        $client = new Client();
+        //  $response=$client->request ('GET','https://api.chucknorris.io/jokes/random', [     //correct
+        //     'form_params' => [
+        //       'api_key' => 'b53366c91585c976e6173e69f6916b',   // incorrect for safety  
+        //      //  'api_key' => 'b53366c91585c976e6173e69f6916b2d', //correct api
+        //         'number' => $mPhones,
+        //         'message' => $message,
+        //         'template_id' => '1007860893566335888'
+        //     ]
+        // ]);
+        //$response=$client->request ('GET','https://api.chucknorris.io/jokes/random');
+        $response = Http::get('https://api.chucknorris.io/jokes/random');
+        $jsonArr = json_decode($response);
+        //dd($jsonArr->value);
+        $value =$jsonArr->value;
+        return view('api',compact('value'));
     }
 
  

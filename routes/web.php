@@ -18,4 +18,5 @@ Route::get('/', function () {
 });
 
 Route::resource('students', 'StudentController');
+Route::get('apitest','StudentController@apitest');
 
