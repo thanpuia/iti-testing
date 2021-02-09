@@ -1,5 +1,6 @@
 <h1>
 
-{{ $value }}
-
+@foreach($value as $v)
+{{ $v->first_name }} <br>
+@endforeach
 </h1>

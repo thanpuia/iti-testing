@@ -90,10 +90,11 @@ class StudentController extends Controller
         //     ]
         // ]);
         //$response=$client->request ('GET','https://api.chucknorris.io/jokes/random');
-        $response = Http::get('https://api.chucknorris.io/jokes/random');
-        $jsonArr = json_decode($response);
-        //dd($jsonArr->value);
-        $value =$jsonArr->value;
+        $response = Http::get('https://www.balldontlie.io/api/v1/players');
+        $value = json_decode($response);
+        $value = $value->data;
+       // dd($jsonArr);
+       // $value =$jsonArr->first_name;
         return view('api',compact('value'));
     }
 
